@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Phaser game</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+        </style>
+        <script src="phaser.min.js"></script>
+    </head>
+    <body>
+        <script>
+            let config = {
+                type: Phaser.AUTO,
+                width: 480,
+                height: 320,
+                backgroundColor: "#eee",
+                physics: {
+                    default: "arcade",
+                },
+                scene: {
+                    preload: preload,
+                    create: create,
+                    update: update,
+                },
+            };
+            let ball;
+
+            let game = new Phaser.Game(config);
+
+            function preload() {
+                this.load.image("ball", "img/ball.png");
+            }
+            function create() {
+                ball = this.physics.add.sprite(50, 50, "ball");
+
+                ball.setVelocity(150, 150);
+                // ball.setGravity(10);
+            }
+            function update() {}
+        </script>
+    </body>
+</html>
