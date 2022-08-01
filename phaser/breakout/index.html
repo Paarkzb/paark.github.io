@@ -30,19 +30,43 @@
                 },
             };
             let ball;
+            let paddle;
 
             let game = new Phaser.Game(config);
 
             function preload() {
                 this.load.image("ball", "img/ball.png");
+                this.load.image("paddle", "img/paddle.png");
             }
-            function create() {
-                ball = this.physics.add.sprite(50, 50, "ball");
 
-                ball.setVelocity(150, 150);
+            function create() {
+                ball = this.physics.add.sprite(
+                    this.physics.world.bounds.width * 0.5,
+                    this.physics.world.bounds.height - 25,
+                    "ball"
+                );
+
+                ball.setVelocity(150, -150);
                 // ball.setGravity(10);
+
+                ball.body.collideWorldBounds = true;
+                ball.body.bounce.set(1);
+
+                paddle = this.physics.add.sprite(
+                    this.physics.world.bounds.width * 0.5,
+                    this.physics.world.bounds.height - 5,
+                    "paddle"
+                );
+                paddle.setImmovable(true);
+                // paddle.anchor.set(0.5, 1);
+
+                this.physics.add.collider(ball, paddle);
             }
-            function update() {}
+
+            function update() {
+                paddle.x =
+                    this.input.x || this.physics.world.bounds.width * 0.5;
+            }
         </script>
     </body>
 </html>
