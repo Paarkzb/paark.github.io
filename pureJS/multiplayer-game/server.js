@@ -9,11 +9,13 @@ let server = http.Server(app);
 let io = socketIO(server);
 
 app.set("port", 5000);
-app.use("/static", express.static(__dirname + "/static"));
+app.use("/node_modules", express.static(__dirname + "/node_modules"));
+app.use("/public", express.static(__dirname + "/public"));
+app.use("/shared", express.static(__dirname + "/shared"));
 
 // Routing
 app.get("/", function (request, response) {
-    response.sendFile(path.join(__dirname, "index.html"));
+    response.sendFile(path.join(__dirname + "/views", "index.html"));
 });
 
 // Starts the server

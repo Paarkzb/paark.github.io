@@ -1,6 +1,11 @@
 let socket = io();
 
-let movement = {
+let canvas = document.getElementById("canvas");
+canvas.width = 800;
+canvas.height = 600;
+let ctx = canvas.getContext("2d");
+
+movement = {
     up: false,
     down: false,
     left: false,
@@ -47,11 +52,6 @@ setInterval(function () {
     socket.emit("movement", movement);
 }, 1000 / 60);
 
-let canvas = document.getElementById("canvas");
-canvas.width = 800;
-canvas.height = 600;
-let ctx = canvas.getContext("2d");
-
 socket.on("state", function (players) {
     ctx.clearRect(0, 0, 800, 600);
     ctx.fillStyle = "green";
@@ -59,10 +59,10 @@ socket.on("state", function (players) {
     for (let id in players) {
         let player = players[id];
 
-        // console.log(players);
-
         ctx.beginPath();
         ctx.arc(player.x, player.y, 10, 0, 2 * Math.PI);
         ctx.fill();
+        ctx.closePath();
+        // console.log(players);
     }
 });
